@@ -1,0 +1,44 @@
+
+services:
+  # stocktrack:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 5173:5173
+  #   volumes:
+  #     - type: bind
+  #       source: ./app
+  #       target: /app/app
+  #     # - ./app:/app/app
+  #   networks:
+  #     - stocktrack_net
+  postgres:
+    image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    networks:
+      - stocktrack_net
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - 9000:8080
+    networks:
+      - stocktrack_net
+
+volumes:
+  postgres_data:
+
+networks:
+  stocktrack_net:
+    driver: bridge
