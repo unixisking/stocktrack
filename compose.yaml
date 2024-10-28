@@ -1,18 +1,5 @@
 
 services:
-  # stocktrack:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 5173:5173
-  #   volumes:
-  #     - type: bind
-  #       source: ./app
-  #       target: /app/app
-  #     # - ./app:/app/app
-  #   networks:
-  #     - stocktrack_net
   postgres:
     image: postgres:16.2
     volumes:
@@ -26,6 +13,15 @@ services:
     networks:
       - stocktrack_net
 
+  redis:
+    image: redis/redis-stack-server:latest
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data    
+
   adminer:
     image: adminer
     restart: always
@@ -38,6 +34,7 @@ services:
 
 volumes:
   postgres_data:
+  redis_data:
 
 networks:
   stocktrack_net:

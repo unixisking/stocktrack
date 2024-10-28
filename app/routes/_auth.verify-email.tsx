@@ -1,6 +1,7 @@
 import { LoaderFunction, LoaderFunctionArgs } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import { findUser } from '~/.server/user'
+// import { findUser } from '@/.server/user'
+import { findUser } from '@/.server/user'
 
 interface IUser {
   id: string

@@ -1,4 +1,5 @@
 import { createCookieSessionStorage, redirect } from '@remix-run/node'
+import { createThemeSessionResolver } from 'remix-themes'
 import invariant from 'tiny-invariant'
 
 invariant(process.env.SESSION_SECRET, 'SESSION_SECRET env variable must be set')
@@ -15,6 +16,23 @@ export const sessionStorage = createCookieSessionStorage({
     secure: process.env.NODE_ENV === 'production',
   },
 })
+
+const isProduction = process.env.NODE_ENV === 'production'
+const themeStorage = createCookieSessionStorage({
+  cookie: {
+    name: '_theme',
+    path: '/',
+    httpOnly: true,
+    sameSite: 'lax',
+    secrets: ['s3cr3t'],
+    // Set domain and secure only if in production
+    ...(isProduction
+      ? { domain: 'stocktrack.sidahmed.tech', secure: true }
+      : {}),
+  },
+})
+
+export const themeSessionResolver = createThemeSessionResolver(themeStorage)
 
 export const {
   getSession: getSessionStorage,

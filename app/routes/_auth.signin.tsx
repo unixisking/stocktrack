@@ -1,4 +1,4 @@
-import { Input, Field, Label, Button } from '@headlessui/react'
+import { Input, Field, Label } from '@headlessui/react'
 import { Form, redirect, useNavigation } from '@remix-run/react'
 import {
   ActionFunction,
@@ -8,11 +8,11 @@ import {
   LoaderFunctionArgs,
   MetaFunction,
 } from '@remix-run/node'
-import PasswordInput from '~/components/PasswordInput'
-import { createUserSession, getSession } from '~/.server/session'
-import { login } from '~/.server/auth'
+import PasswordInput from '@/components/PasswordInput'
+import { createUserSession, getSession } from '@/.server/session'
+import { login } from '@/.server/auth'
 import { validateEmail } from './_auth.signup/validate'
-import { Switch } from '@chakra-ui/react'
+import { Button } from '@/components/ui/button'
 
 export const loader: LoaderFunction = async ({
   request,
@@ -33,8 +33,6 @@ export const action: ActionFunction = async ({
   const email = form.get('email')
   const password = form.get('password')
   const remember = form.get('remember')
-
-  console.log(email, password, remember)
 
   if (!validateEmail(email)) {
     return json(
@@ -104,7 +102,7 @@ export default function Login() {
         <div className="flex justify-between items-center">
           <Field className="flex space-x-2">
             <Label htmlFor="remember">Remember me?</Label>
-            <Switch value="on" name="remember" size="md" id="remember" />
+            {/* <Switch value="on" name="remember" size="md" id="remember" /> */}
           </Field>
           <a href="/forgot-password" className="font-bold">
             Forgot password?
@@ -119,7 +117,7 @@ export default function Login() {
         <Button
           type="submit"
           disabled={navigation.state === 'submitting'}
-          className="bg-black text-white w-full py-2 rounded-lg"
+          className="w-full py-2 rounded-lg"
         >
           Sign in
         </Button>

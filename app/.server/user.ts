@@ -1,7 +1,7 @@
 import prisma from './prisma'
 import { randomBytes, pbkdf2Sync } from 'crypto'
 
-interface IUser {
+export interface IUser {
   id: number
   name: string
   email: string

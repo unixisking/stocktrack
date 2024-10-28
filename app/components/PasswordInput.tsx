@@ -6,7 +6,7 @@ import {
   defaultRules,
   IRules,
   validatePassword,
-} from '~/routes/_auth.signup/validate'
+} from '@/routes/_auth.signup/validate'
 
 interface IPasswordInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -33,7 +33,6 @@ export default function PasswordInput(props: IPasswordInputProps) {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (setIsValid) {
       const [newRules, isValid] = validatePassword(e.currentTarget.value, rules)
-      console.log(newRules)
       setIsValid(isValid)
       setRules(newRules)
     }

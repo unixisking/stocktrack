@@ -1,4 +1,3 @@
-
 //Hello
 generator client {
   provider = "prisma-client-js"
@@ -15,4 +14,27 @@ model User {
   name  String
   hashedPassword String  
   salt String
+
+  workspaces Workspace[]
+}
+
+model Workspace {
+  id    Int     @id @default(autoincrement())
+  name  String @unique
+  owner  User @relation(fields: [ownerid], references: [id])
+  ownerid Int
+  watchlists WatchList[]
+}
+
+model WatchList {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  companies Company[] @relation("WatchListToCompany")
+  Workspace Workspace[]
+}
+
+model Company {
+  id        Int         @id @default(autoincrement())
+  ticker    String
+  watchlists WatchList[] @relation("WatchListToCompany")
 }

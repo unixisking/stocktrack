@@ -3,7 +3,7 @@
 import { pbkdf2Sync } from 'crypto'
 
 import { findUser } from './user'
-import { ServerError } from '~/utils/error'
+import { ServerError } from '@/utils/error'
 
 export const login = async (email: string, password: string) => {
   const isUser = await findUser({ email })

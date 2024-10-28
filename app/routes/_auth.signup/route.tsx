@@ -1,4 +1,4 @@
-import { Input, Field, Label, Button } from '@headlessui/react'
+import { Input, Field, Label } from '@headlessui/react'
 import { Form, redirect, useActionData } from '@remix-run/react'
 import {
   json,
@@ -6,11 +6,12 @@ import {
   ActionFunctionArgs,
   MetaFunction,
 } from '@remix-run/node'
-import PasswordInput from '~/components/PasswordInput'
+import PasswordInput from '@/components/PasswordInput'
 import { useState } from 'react'
-import { createUser } from '~/.server/user'
-// import { sendMail } from '~/.server/mailer'
-import { commitSession, getSession } from '~/.server/session'
+import { createUser } from '@/.server/user'
+// import { sendMail } from '@/.server/mailer'
+import { commitSession, getSession } from '@/.server/session'
+import { Button } from '@/components/ui/button'
 
 interface IActionErrors {
   repeatPassword?: string
@@ -131,7 +132,7 @@ export default function SignUp() {
         ) : null}
         <Button
           type="submit"
-          className="text-white w-full py-2 rounded-lg bg-black disabled:opacity-70"
+          className="w-full py-2 rounded-lg "
           disabled={!isValid || repeatPassword == ''}
         >
           Sign up

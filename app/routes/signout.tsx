@@ -1,7 +1,7 @@
 import { redirect, type ActionFunctionArgs } from '@remix-run/node'
 
-// import { destroySession, getSession } from '~/utils/auth.server'
-import { destroySession, getSession } from '~/.server/session'
+// import { destroySession, getSession } from '@/utils/auth.server'
+import { destroySession, getSession } from '@/.server/session'
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const session = await getSession(request.headers.get('Cookie'))
